@@ -1,12 +1,24 @@
 #!/usr/bin/env node
 
 /**
+ * Read environment variables
+ */
+require('dotenv').config();
+
+/**
+ * Believe it or not, reading process.env is expensive in NODE.js
+ * https://github.com/nodejs/node/issues/3104
+ * We want to cache process.env to a regular object since we don't expect it to change at any runtime anyway.
+ */
+process.env = JSON.parse(JSON.stringify(process.env));
+
+/**
  * Module dependencies.
  */
 
-var app = require('../app');
-var debug = require('debug')('voyage-prework-tier3-journal-app:server');
-var http = require('http');
+const app = require('../dist/app').default;
+const debug = require('debug')('voyage-prework-tier3-journal-app:server');
+const http = require('http');
 
 /**
  * Get port from environment and store in Express.
@@ -19,7 +31,7 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+const server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -58,7 +70,7 @@ function onError(error) {
     throw error;
   }
 
-  var bind = typeof port === 'string'
+  const bind = typeof port === 'string'
     ? 'Pipe ' + port
     : 'Port ' + port;
 
