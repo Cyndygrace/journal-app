@@ -4,7 +4,7 @@ import  path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 
-import indexRouter from './routes/index';
+import apiRouter from './routes/index';
 
 
 var app = express();
@@ -15,7 +15,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api', indexRouter);
+// Rest api Route
+app.use('/api', apiRouter);
 
 
 // catch 404 and forward to error handler
