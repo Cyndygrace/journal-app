@@ -4,8 +4,12 @@ import  path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 
-import apiRouter from './routes/index';
 
+
+import dotenv from 'dotenv';
+dotenv.config();
+
+import apiRouter from './routes/index';
 
 var app = express();
 
